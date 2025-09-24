@@ -1,7 +1,7 @@
 "use server";
 
 import { Account, Avatars, Client, Databases, Storage } from "node-appwrite";
-import { appwriteConfig } from "@/appwrite/config";
+import { appwriteConfig } from "@/lib/appwrite/config";
 import { cookies } from "next/headers";
 
 export const createSessionClient = async () => {
@@ -10,6 +10,7 @@ export const createSessionClient = async () => {
     .setProject(appwriteConfig.projectId);
 
   const session = (await cookies()).get("appwrite-session");
+  console.log("Appwrite session value:", session?.value); // Debug log
   if (!session || !session.value) {
     throw new Error("No session found");
   }
